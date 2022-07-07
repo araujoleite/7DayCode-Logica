@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: rgb(116, 42, 119);
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+        }
+
+        li {
+            list-style: none;
+            width: 85vw;
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: -40px;
+        }
+
+            li::before {
+                content: "\2022  ";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+                color: rgb(234, 153, 22); /* Change the color */
+                font-weight: bold; /* If you want it to be bold */
+                /*display: inline-block;  Needed to add space between the bullet and the text */
+                width: 1em; /* Also needed for space (tweak if needed) */
+                /* margin-left: -2em; Also needed for space (tweak if needed) */
+            }
+
+            li:hover::after {
+                content: "x";
+                display:inline-block;
+                position: relative;
+                margin-left: 75vw;
+                color: rgb(255, 41, 41);
+                font-size: 1.2rem;
+                /* font-weight: bold; */
+            }
+
+            li:hover {
+                background-color: rgb(211, 211, 211);
+                cursor: pointer;
+            }
+
+        .h1 {
+            text-align: center;
+            margin: 20px;
+            color: rgb(241, 184, 15);
+        }
+
+        .h2 {
+            color: rgb(108, 15, 129);
+        }
+
+        .listaVazia {
+            text-align: center;
+            font-size: 3rem;
+            margin: 100px;
+            color: rgb(92, 31, 99);
+        }
+
+        .form {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            margin: 30px auto;
+            width: 90vw;
+            padding: 20px;
+            gap: 15px;
+            border-radius: 10px;
+            background-color: rgb(96, 33, 98);
+        }
+
+        .input {
+            padding: 15px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+        }
+
+            .input::placeholder {
+                opacity: 60%;
+                transition: opacity 300ms;
+            }
+
+            .input:focus::placeholder {
+                opacity: 0;
+            }
+
+        .button {
+            grid-row: span 2;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(241, 184, 15);
+            transition: background-color 300ms;
+            cursor: pointer;
+        }
+
+            .button:hover {
+                background-color: rgb(255, 227, 48);
+            }
+
+            .button i::before {
+                content: "+";
+                font-size: 60px;
+                font-weight: 500;
+                color: rgb(107, 31, 179);
+                position: absolute;
+                margin: -42px -20px;
+            }
+
+        .radio__list {
+            display: flex;
+            justify-content: space-around;
+            color: aliceblue;
+        }
+
+        .radius {
+            border: none;
+            background-color: aqua;
+        }
+
+        .categorias {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 90vw;
+            margin: 0 auto 30px;
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <h1 class="h1">Lista de Compras</h1>
+
+    <section class="form">
+        <input type="text" placeholder="Ovo, maçã, bala..." id="produto" class="input">
+        <button type="button" class="button"><i></i></button>
+        <div class="radio__list" id="radio__list">
+            <div>
+                <input type="radio" name="tipo" value="fruta" class="radius" id="check_fruta" checked>
+                <label for="check_fruta" class="radio__label">Fruta</label>
+            </div>
+            <div>
+                <input type="radio" name="tipo" value="laticinio" class="radius" id="check_laticinio">
+                <label for="check_laticinio" class="radio__label">Laticínios</label>
+            </div>
+            <div>
+                <input type="radio" name="tipo" value="congelado" class="radius" id="check_congelado">
+                <label for="check_congelado" class="radio__label">Congelados</label>
+            </div>
+            <div>
+                <input type="radio" name="tipo" value="doce" class="radius" id="check_doce">
+                <label for="check_doce" class="radio__label">Doces</label>
+            </div>
+        </div>
+    </section>
+
+    <section class="categorias hide" data-fruta>
+        <h2 class="h2">Frutas</h2>
+        <ul id="fruta"></ul>
+    </section>
+
+    <section class="categorias" data-laticinio>
+        <h2 class="h2">Laticínios</h2>
+        <ul id="laticinio">
+            <li>Batata</li>
+            <li>Batata</li>
+        </ul>
+    </section>
+
+    <section class="categorias hide" data-congelado>
+        <h2 class="h2">Congelados</h2>
+        <ul id="congelado"></ul>
+    </section>
+
+    <section class="categorias hide" data-doce>
+        <h2 class="h2">Doces</h2>
+        <ul id="doce"></ul>
+    </section>
+
+    <section data-vazio>
+        <h2 class="listaVazia">Sua lista está vazia!</h2>
+    </section>
+
+    <script>     
+        // const lista = {};
+
+        // lista.frutas = ['maça', 'abóbora'];
+        // lista.frutas.push('banana');
+        // lista.carne = ['patinho', 'maminha'];
+
+        // console.log(lista);
+
+        const add = document.querySelector('button');
+        const product = document.getElementById('produto');
+        const categoryCheck = document.getElementsByName('tipo');
+
+        function addItem() {    
+            let category = ""
+            
+            for(i = 0; i < categoryCheck.length; i++) {
+                if(categoryCheck[i].checked) {
+                    category = categoryCheck[i].value;
+                    document.querySelector(`[data-${categoryCheck[i].value}]`).classList.remove('hide');
+                    document.querySelector(`[data-vazio]`).classList.add('hide');
+                }
+            }
+
+            let addElement = document.getElementById(category);
+            let newElement = document.createElement('li');
+            newElement.innerText = product.value;
+
+            addElement.appendChild(newElement);
+
+            product.value = "";
+            product.focus();
+        }
+
+        add.addEventListener('click', addItem)
+        product.addEventListener('keypress', (e) => { if (e.key === 'Enter') { addItem()} })
+
+    </script>
+</body>
+</html>

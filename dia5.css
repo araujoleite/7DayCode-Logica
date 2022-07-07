@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: rgb(116, 42, 119);
+}
+
+
+
+.h1 {
+    text-align: center;
+    margin: 20px;
+    color: rgb(241, 184, 15);
+}
+
+.h2 {
+    color: rgb(108, 15, 129);
+}
+
+.listaVazia {
+    text-align: center;
+    font-size: 3rem;
+    margin: 100px;
+    color: rgb(92, 31, 99);
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    margin: 30px auto;
+    width: 90vw;
+    padding: 20px;
+    gap: 15px;
+    border-radius: 10px;
+    background-color: rgb(96, 33, 98);
+}
+
+.input {
+    padding: 15px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+    .input::placeholder {
+        opacity: 60%;
+        transition: opacity 300ms;
+    }
+
+    .input:focus::placeholder {
+        opacity: 0;
+    }
+
+.adiciona {
+    grid-row: span 3;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(241, 184, 15);
+    transition: background-color 300ms;
+    cursor: pointer;
+}
+
+    .adiciona:hover {
+        background-color: rgb(255, 227, 48);
+    }
+
+    .adiciona i::before {
+        content: "+";
+        font-size: 60px;
+        font-weight: 500;
+        color: rgb(107, 31, 179);
+        position: absolute;
+        margin: -32px -20px;
+    }
+
+.limpa {
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    background-color: rgb(185, 59, 164);
+    transition: background-color 300ms;
+    cursor: pointer;
+}
+
+    .limpa:hover {
+        background-color: rgb(221, 69, 196);
+    }
+
+.radio__list {
+    display: flex;
+    justify-content: space-around;
+    color: aliceblue;
+}
+
+.radius {
+    border: none;
+    background-color: aqua;
+}
+
+.categorias {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90vw;
+    margin: 0 auto 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px;
+}
+
+li {
+    list-style: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
+
+    li::before {
+        content: "\2022  ";
+        color: rgb(234, 153, 22);
+        font-weight: bold;
+        width: 1em;
+    }
+
+    li:hover {
+        background-color: rgb(211, 211, 211);
+    }
+
+    .delete {
+        grid-row: span 2;
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0);
+        color: rgb(206, 199, 199);
+        transition: background-color 300ms;
+        cursor: pointer;
+    }
+
+        li:hover .delete {
+            color: rgb(255, 0, 0);
+            cursor: pointer;
+        }   
+
+.hide {
+    display: none;
+}

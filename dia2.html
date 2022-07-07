@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7DaysCode</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: darkslategray;
+        }
+
+        .question {
+            display: flex;
+            flex-direction: column;
+            row-gap: 8px;
+            width: 400px;
+            margin: 100px auto;
+        }
+        
+        label {
+            color: rgb(255, 255, 255);
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            outline: 0;
+            border: none;
+            background-color: rgb(217, 217, 217);
+            border-radius: 5px;
+            
+        }
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input::placeholder {
+            transition: opacity 300ms;
+        }
+
+        input:focus::placeholder {
+            opacity: 0;
+        }
+
+        button {
+            padding: 10px 30px;
+            width: fit-content;
+            height: 40px;
+            border: none;
+            background-color: rgb(255, 157, 0);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 300ms;
+        }
+
+        button:hover {
+            background-color: rgb(182, 112, 0);
+        }
+        
+        .answer {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            row-gap: 8px;
+            width: 400px;
+            margin: 50px auto;
+        }
+
+        .answer strong {
+            color: rgb(255,175,0);
+        }
+
+        .extra {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            column-gap: 15px;
+            width: 600px;
+            margin: 50px auto;
+        }
+
+        .extra__like {
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            padding: 0 10px;
+            width: 100px;
+            height: 40px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <section id="question" class="question">
+        <label for="name">Qual o seu nome?</label>
+        <input name="name" type="text" placeholder="Nome" id="name" autocomplete="off">
+
+        <label for="age">Qual a sua idade</label>
+        <input name="age"type="number" placeholder="Idade" id="age">
+
+        <label for="typeLang">Qual linguagem de programação vocês está estudando?</label>
+        <input name="typeLang" type="text" placeholder="JS, C#, Python..." id="typeLang">
+
+        <button type="button" id="sendQuestion">Enviar</button>
+    </section>
+
+    <section id="questionAnswer" class="answer hide"></section>
+
+    <section id="extra" class="extra hide">
+        <label for="like">Você gosta de mais de estudar ou mais de batata?</label>
+        <select name="like" id="like" class="extra__like">
+            <option value="1">Sim</option>
+            <option value="2">Não</option>
+        </select>
+        <button type="button" id="sendExtra">Enviar</button>
+    </section>
+
+    <section id="extraAnswer" class="answer hide"></section>
+    
+    <script>
+        const question = document.getElementById('question');
+
+        const name = document.getElementById('name');
+        const age = document.getElementById('age');
+        const typeLang = document.getElementById('typeLang');
+        const sendQuestion = document.querySelector('#sendQuestion');
+
+        const questionAnswer = document.getElementById('questionAnswer');
+        const extra = document.getElementById('extra');
+        const sendExtra = document.getElementById('sendExtra');
+
+        const like = document.getElementById('like');
+
+        const extraAnswer = document.getElementById('extraAnswer');
+
+        function loadAnswer() {
+            if (name.value != "" && age.value != ""){
+                questionAnswer.innerHTML = `Olá <strong>${name.value}</strong>, você tem <strong>${age.value} anos </strong> e já está aprendendo <strong>${typeLang.value}!</strong>`;
+                question.classList.add("hide");
+                questionAnswer.classList.remove("hide");
+                extra.classList.remove("hide");
+            } else {
+                let div = document.createElement('div');
+                div.innerText = 'Preencha TODOS os campos!';
+                div.classList.add("answer");
+                question.appendChild(div);
+            }
+        }
+
+        function loadExtra() {
+            // questionAnswer.classList.toggle("hide");    
+            extra.classList.add("hide");
+            extraAnswer.classList.remove("hide");
+            
+            if (like.value == '1') {
+                extraAnswer.innerText = "Muito bom! Continue estudando e você terá muito sucesso.";
+            } else if (like.value == '2') {
+                extraAnswer.innerText = "Ahh que pena... Já tentou aprender outras linguagens?";
+            }
+        }
+
+        sendQuestion.addEventListener('click', loadAnswer);
+
+        sendExtra.addEventListener('click', loadExtra);
+
+    </script>
+</body>
+</html>

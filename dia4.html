@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qual é o número?</title>
+</head>
+<body>
+    
+    <script>
+        let numSorteado = Math.floor(Math.random()*(11-1))+1;
+
+        let chute = prompt('Adivinhe qual número eu pensei, de 0 a 10! - (VOCÊ TEM 3 TENTATIVAS)');
+
+        for(let contador = 1; contador < 3; contador++){
+            if (chute == numSorteado){
+                alert(`Você acertou, parabéns! O número sorteado foi ${numSorteado}`);
+                break;
+            }
+            chute = prompt('Tente de novo!');
+        }
+
+        if (chute != numSorteado) {
+                alert(`Ahh que pena, você não coseguiu. O número sorteado foi ${numSorteado}`);
+        }
+    </script>
+</body>
+</html>

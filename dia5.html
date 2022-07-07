@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Lista de Compras</title>
+    
+    <link rel="stylesheet" href="dia5.css">
+</head>
+<body>
+    <h1 class="h1">Lista de Compras</h1>
+
+    <section class="form">
+        <input type="text" placeholder="Ovo, maçã, bala..." id="produto" class="input">
+        <button type="button" class="adiciona" id="adiciona"><i></i></button>
+        <button type="button" class="limpa" id="limpa">LIMPAR LISTA</button>
+        
+        <div class="radio__list" id="radio__list">
+            <div>
+                <input type="radio" name="tipo" value="fruta" class="radius" id="check_fruta" checked>
+                <label for="check_fruta" class="radio__label">Fruta</label>
+            </div>
+            <div>
+                <input type="radio" name="tipo" value="laticinio" class="radius" id="check_laticinio">
+                <label for="check_laticinio" class="radio__label">Laticínios</label>
+            </div>
+            <div>
+                <input type="radio" name="tipo" value="congelado" class="radius" id="check_congelado">
+                <label for="check_congelado" class="radio__label">Congelados</label>
+            </div>
+            <div>
+                <input type="radio" name="tipo" value="doce" class="radius" id="check_doce">
+                <label for="check_doce" class="radio__label">Doces</label>
+            </div>
+        </div>
+    </section>
+
+    <section class="categorias hide" data-fruta>
+        <h2 class="h2">Frutas</h2>
+        <ul id="fruta"></ul>
+    </section>
+
+    <section class="categorias hide" data-laticinio>
+        <h2 class="h2">Laticínios</h2>
+        <ul id="laticinio"></ul>
+    </section>
+
+    <section class="categorias hide" data-congelado>
+        <h2 class="h2">Congelados</h2>
+        <ul id="congelado"></ul>
+    </section>
+
+    <section class="categorias hide" data-doce>
+        <h2 class="h2">Doces</h2>
+        <ul id="doce"></ul>
+    </section>
+
+    <section data-vazio>
+        <h2 class="listaVazia">Sua lista está vazia!</h2>
+    </section>
+
+    <script src="dia5.js"></script>
+</body>
+</html>

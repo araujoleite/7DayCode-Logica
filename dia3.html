@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Que Você Quer</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(235, 235, 235);
+            margin-top: 40px;
+        }
+
+        ul, li {
+            list-style: disc;
+        }
+
+        button {
+            padding: 10px;
+            border: 0;
+            color: rgb(255, 255, 255);
+            background-color: rgb(173, 61, 217);
+            border-radius: 3px;
+            transition: 300ms;
+        }
+
+        button:hover {
+            background-color: rgb(126, 44, 159);
+            padding: 12px;
+        }
+
+        input {
+            outline: none;
+            border: 0;
+            padding: 10px;
+            width: 400px;
+            border-radius: 5px;
+            color: rgb(52, 52, 52);
+        }
+
+        input::placeholder {
+            color: rgb(177, 177, 177);
+            transition: opacity 400ms;
+        }
+
+        input:focus::placeholder {
+            opacity: 0;
+        }
+
+        input:disabled {
+            background-color: rgb(220, 220, 220);
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 10px;
+            margin: 50px;
+        }
+
+        .p {
+            font-size: 1rem;
+        }
+
+        .sub {
+            font-size: 0.9rem;
+            color: rgb(83, 83, 83);
+            margin-bottom: 20px;
+        }
+
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 10px;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="step1">
+        <p class="p">Qual área você quer seguir?</p>
+        <div>
+            <button type="button" id="step1front">Front-End</button>
+            <button type="button" id="step1back">Back-End</button>
+        </div>
+    </section>
+
+    <section class="section hide" id="step2">
+        <p class="p">O que quer aprender?</p>
+        <div id="step2front" class="hide">
+            <button type="button" onclick="step2('Vue')">Vue</button>
+            <button type="button" onclick="step2('React')">React</button>
+        </div>
+        <div id="step2back" class="hide">
+            <button type="button" onclick="step2('C#')">C#</button>
+            <button type="button" onclick="step2('Java')">Java</button>
+        </div>
+    </section>
+
+    <section class="section hide" id="step3">
+        <p class="p">Qual o próximo passo?</p>
+        <div>
+            <button type="button" onclick="step3('especializar na área')">Especializar na área</button>
+            <button type="button" onclick="step3('virar fullstack')">Virar Fullstack</button>
+        </div>
+    </section>
+
+    <section class="section hide" id="step4">
+        <p class="p">Qual tecnologia você gostaria de aprender ou se especializar?</p>
+        <p class="sub">Adicione quantas quiser.</p>
+        <div id="inputs" class="inputs">
+            <input type="text" placeholder="JS, C#, Java, Python..." id="metas1">
+        </div>
+        <div>
+            <button type="button" id="addBtn">+ Adicionar</button>
+            <button type="button" id="okBtn">Concluir</button>
+        </div>
+    </section>
+    <section class="section hide" id="resultado">
+        <h1>Recapitulando:</h1>
+        <p class="resultado" id="resultadoPt1"></p>
+        <p class="resultado" id="resultadoPt2"></p>
+        <ul id="resultadoLista"></ul>
+    </section>
+
+    <script>
+        //Informações
+        let area = "";
+        let tecnologia = "";
+        let proxPasso = "";
+        let metas = [];
+
+
+        const sectionStep1 = document.getElementById('step1')
+        const step1front = document.getElementById('step1front');
+        const step1back = document.getElementById('step1back');
+
+        function step1(opcao) {
+            sectionStep1.classList.add('hide');
+            sectionStep2.classList.remove('hide');
+            if (opcao == 'front') {
+                step2front.classList.remove('hide');
+                area = 'Front-End';
+            } else if (opcao == 'back') {
+                step2back.classList.remove('hide');
+                area = 'Back-End';
+            }
+        };
+
+
+        const sectionStep2 = document.querySelector('#step2');
+        const step2front = document.querySelector('#step2front');
+        const step2back = document.querySelector('#step2back');
+
+        function step2(valor) {
+            tecnologia = valor;
+            sectionStep2.classList.add('hide');
+            sectionStep3.classList.remove('hide');
+        }
+
+
+        const sectionStep3 = document.querySelector('#step3');
+
+        function step3(escolha) {
+            sectionStep3.classList.add('hide');
+            sectionStep4.classList.remove('hide');
+            proxPasso = escolha;
+        }
+
+
+        const sectionStep4 = document.querySelector('#step4');
+        const inputs = document.querySelector('#inputs');
+        const addBtn = document.querySelector('#addBtn');
+        const okBtn = document.querySelector('#okBtn');
+        let contador = 1;
+
+        function step4() {
+            let inputMaster = document.querySelector('#metas' + contador);
+            metas.push(inputMaster.value)
+            inputMaster.disabled = true;
+            contador++
+            newInput = document.createElement('input');
+            newInput.placeholder = "JS, C#, Java, Python...";
+            newInput.id = "metas" + contador;
+
+            inputs.appendChild(newInput);
+
+            inputMaster = document.querySelector('#metas' + contador);
+            inputMaster.focus();
+        }
+
+
+        const resultado = document.querySelector('#resultado');
+        const resultadoPt1 = document.querySelector('#resultadoPt1');
+        const resultadoPt2 = document.querySelector('#resultadoPt2');
+        const resultadoLista = document.querySelector('#resultadoLista');
+
+        function step4ok() {
+            let inputMaster = document.querySelector('#metas' + contador);
+            if (inputMaster.value != ""){
+                metas.push(inputMaster.value)
+            }
+            inputMaster.disabled = true;
+            sectionStep4.classList.add('hide');
+            addBtn.classList.add('hide');
+            okBtn.classList.add('hide');
+            resultado.classList.remove('hide');
+
+
+            resultadoPt1.innerHTML = `Você quer seguir a área de ${area}, focando em ${tecnologia}.`
+            resultadoPt2.innerHTML = `Seu desejo é ${proxPasso} e quer aprender:`
+
+            for(let i = 0; i < metas.length; i++){
+                const lista = document.createElement('li');
+                lista.innerText = metas[i];
+                resultadoLista.appendChild(lista);
+            }
+
+            console.log(area);
+            console.log(tecnologia);
+            console.log(proxPasso);
+        }
+
+
+        step1front.addEventListener('click', () => { step1('front') });
+        step1back.addEventListener('click', () => { step1('back') });
+
+        
+        addBtn.addEventListener('click', step4);
+        okBtn.addEventListener('click', step4ok);
+
+    </script>
+</body>
+</html>
